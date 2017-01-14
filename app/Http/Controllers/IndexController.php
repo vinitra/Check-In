@@ -26,8 +26,7 @@ class IndexController extends Controller {
     }
 
     public function get_oauth() {
-        $client = new \OAuth2\Client('la-manager', env('APP_OAUTH_KEY', 'SomeRandomKey'), \OAuth2\Client::AUTH_TYPE_AUTHORIZATION_BASIC);
-        $client->setClientAuthType(\OAuth2\Client::AUTH_TYPE_URI);
+        $client = new \OAuth2\Client('la-manager', env('APP_OAUTH_KEY', 'SomeRandomKey'), \OAuth2\Client::AUTH_TYPE_AUTHORIZATION_URI);
         $client->setCurlOption(CURLOPT_USERAGENT, "CheckIn/1.1");
 
         $error = Request::input('error');
@@ -65,7 +64,7 @@ class IndexController extends Controller {
                 else if ($val["role"] != "lab assistant") {
                     //This is a student and shouldn't have access to console
                     return redirect()->route("information")->with(array("message" => "You must be enrolled as a lab 
-                        assistant on OK to use la.cs61a.org. Contact TA."));
+                        assistant on OK to use the lab assistant manager. Contact TA."));
                 }
             }
         }
@@ -126,9 +125,8 @@ class IndexController extends Controller {
     public function get_login()
     {
 
-        $client = new \OAuth2\Client('la-manager', env('APP_OAUTH_KEY', 'SomeRandomKey'), \OAuth2\Client::AUTH_TYPE_AUTHORIZATION_BASIC);
+        $client = new \OAuth2\Client('la-manager', env('APP_OAUTH_KEY', 'SomeRandomKey'), \OAuth2\Client::AUTH_TYPE_AUTHORIZATION_URI);
         $client->setCurlOption(CURLOPT_USERAGENT, "CheckIn/1.1");
-        $client->setClientAuthType(\OAuth2\Client::AUTH_TYPE_URI);
 
 
 
